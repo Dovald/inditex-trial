@@ -1,0 +1,98 @@
+openapi: 3.0.3
+info:
+  title: Prueba Inditex - Fernando Garcia Doval
+  description: |-
+    Esta es una prueba tecnica para el puesto Developer backend Java creada por Fernando Garcia Doval el 5/Jun/2023 usando openapi y spring. Se pide realizar un servicio que dado un producto y una fecha devuelva el precio al que se tiene que vender el producto para la fecha señalada. 
+  contact:
+    email: dovald3362@gmail.com
+  version: 1.0.0
+servers:
+  - url: https://localhost:8080/inditex
+tags:
+  - name: Prices
+    description: Precios de los productos
+paths:
+  /price/{productId}:
+    get:
+      tags:
+        - Prices
+      summary: Get the price of a product by Id
+      operationId: getPrice
+      parameters:
+        - name: productId
+          in: path
+          description: Id of product
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: date
+          in: query
+          description: Date when the price applies
+          required: true
+          schema:
+            type: string
+        - name: brandId
+          in: query
+          description: Brand of the group where the price applies
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceDTO'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '405':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+components:
+  schemas:
+    PriceDTO:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+          example: 35455
+        brandId:
+          type: integer
+          example: 1
+        priceList:
+          type: integer
+          example: 2
+        startDate:
+          type: string
+          example: "2020-06-14-15.00.00"
+        endDate:
+          type: string
+          example: "2020-06-14-18.30.00 "
+        price:
+          type: integer
+          example: 25.45
+        curr:
+          type: string
+          example: "EUR"
+    ErrorDTO:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+          example: "Mensaje de error"
