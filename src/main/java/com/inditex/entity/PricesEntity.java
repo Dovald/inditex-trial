@@ -1,5 +1,7 @@
 package com.inditex.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,9 +21,9 @@ public class PricesEntity {
 	
 	Integer brandId;
 	
-	String startDate;
+	LocalDateTime startDate;
 	
-	String endDate;
+	LocalDateTime endDate;
 	
 	Integer priceList;
 	

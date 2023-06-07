@@ -14,7 +14,7 @@ import com.inditex.dto.PriceDTO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class InditexTrialApplicationTests {
+public class InditexTrialIntegrationTests {
 
 	@Autowired
     private WebTestClient webTestClient;

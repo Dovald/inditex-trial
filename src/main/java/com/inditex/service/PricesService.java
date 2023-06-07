@@ -26,24 +26,16 @@ public class PricesService {
 	
 	public PriceDTO getPrice(Long productId, String dateStr, Integer brandId){
 		
-		List<PricesEntity> prices = pricesRepository.findByBrandIdAndProductId(brandId, productId);
+		List<PricesEntity> prices = pricesRepository.findByBrandIdAndProductIdOrderByPriorityDesc(brandId, productId);
 		PricesEntity priceFinal = null;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
 		
 		for (PricesEntity price : prices){
-			
-	        LocalDateTime startDate = LocalDateTime.parse(price.getStartDate(), formatter);
-	        LocalDateTime endDate = LocalDateTime.parse(price.getEndDate(), formatter);
 	        LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
 
-	        if (date.isAfter(startDate) && date.isBefore(endDate)) {
-	        	if(priceFinal == null) {
-	        		priceFinal = price;
-	        	}else {
-	        		if(price.getPriority() > priceFinal.getPriority()) {
-	        			priceFinal = price;
-	        		}
-	        	}
+	        if (date.isAfter(price.getStartDate()) && date.isBefore(price.getEndDate())) {
+	        	priceFinal = price;
+	        	break;
 	        } 
 		}
 		

@@ -8,5 +8,5 @@ import com.inditex.entity.PricesEntity;
 
 public interface PricesRepository extends CrudRepository<PricesEntity, Long> {
 	
-	List<PricesEntity> findByBrandIdAndProductId(Integer brandId, Long productId);
+	List<PricesEntity> findByBrandIdAndProductIdOrderByPriorityDesc(Integer brandId, Long productId);
 }
