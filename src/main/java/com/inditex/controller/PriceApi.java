@@ -41,7 +41,7 @@ public interface PriceApi {
     @RequestMapping(value = "/price/{productId}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<?> getPrice(@Parameter(in = ParameterIn.PATH, description = "Id of product", required=true, schema=@Schema()) @PathVariable("productId") Long productId, @NotNull @Parameter(in = ParameterIn.QUERY, description = "Date when the price applies" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "date", required = true) String date, @NotNull @Parameter(in = ParameterIn.QUERY, description = "Brand of the group where the price applies" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "brandId", required = true) Integer brandId);
+    ResponseEntity<PriceDTO> getPrice(@Parameter(in = ParameterIn.PATH, description = "Id of product", required=true, schema=@Schema()) @PathVariable("productId") Long productId, @NotNull @Parameter(in = ParameterIn.QUERY, description = "Date when the price applies" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "date", required = true) String date, @NotNull @Parameter(in = ParameterIn.QUERY, description = "Brand of the group where the price applies" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "brandId", required = true) Integer brandId);
 
 }
 

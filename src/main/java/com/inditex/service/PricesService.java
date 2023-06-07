@@ -24,7 +24,7 @@ public class PricesService {
 	private ModelMapper modelMapper;
 
 	
-	public PriceDTO getPrice(Long productId, String dateStr, Integer brandId) throws InvalidProductException, DateException {
+	public PriceDTO getPrice(Long productId, String dateStr, Integer brandId){
 		
 		List<PricesEntity> prices = pricesRepository.findByBrandIdAndProductId(brandId, productId);
 		PricesEntity priceFinal = null;

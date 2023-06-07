@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.dto.ErrorDTO;
 import com.inditex.dto.PriceDTO;
-import com.inditex.exception.DateException;
-import com.inditex.exception.InvalidProductException;
 import com.inditex.service.PricesService;
 
 import io.swagger.v3.oas.annotations.Parameter;
@@ -30,19 +27,9 @@ public class PriceApiController implements PriceApi {
     @org.springframework.beans.factory.annotation.Autowired
     public PriceApiController() {}
 
-    public ResponseEntity<?> getPrice(@Parameter(in = ParameterIn.PATH, description = "Id of product", required=true, schema=@Schema()) @PathVariable("productId") Long productId,@NotNull @Parameter(in = ParameterIn.QUERY, description = "Date when the price applies" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "date", required = true) String date,@NotNull @Parameter(in = ParameterIn.QUERY, description = "Brand of the group where the price applies" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "brandId", required = true) Integer brandId) {
+    public ResponseEntity<PriceDTO> getPrice(@Parameter(in = ParameterIn.PATH, description = "Id of product", required=true, schema=@Schema()) @PathVariable("productId") Long productId,@NotNull @Parameter(in = ParameterIn.QUERY, description = "Date when the price applies" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "date", required = true) String date,@NotNull @Parameter(in = ParameterIn.QUERY, description = "Brand of the group where the price applies" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "brandId", required = true) Integer brandId) {
 
-        try {
-			return new ResponseEntity<PriceDTO>(pricesService.getPrice(productId, date, brandId) ,HttpStatus.OK);
-		} catch (InvalidProductException e) {
-			ErrorDTO errorDTO = new ErrorDTO();
-			errorDTO.setErrorMessage(e.getMessage());
-			return new ResponseEntity<ErrorDTO>(errorDTO ,HttpStatus.NOT_FOUND);
-		} catch (DateException e) {
-			ErrorDTO errorDTO = new ErrorDTO();
-			errorDTO.setErrorMessage(e.getMessage());
-			return new ResponseEntity<ErrorDTO>(errorDTO ,HttpStatus.METHOD_NOT_ALLOWED);
-		}
+		return new ResponseEntity<PriceDTO>(pricesService.getPrice(productId, date, brandId) ,HttpStatus.OK);
     }
 
 }
