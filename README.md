@@ -14,7 +14,5 @@ He habilitado swagger-ui en este proyecto para realizar mis pruebas durante el d
 
 Puerto por defecto el 8080, se puede cambiar la configuración en src/main/resources/application.properties
 
-Como se ha trabajado con una base de datos H2 que se auto-genera en el arranque del contexto de Spring solo he realizado los test mínimos de integración ya que no hay nada mockeado.
-
 Dada la naturaleza de la prueba, que "solo" necesitamos un valor sin que la petición realice cambios en la base de datos, por coherencia he decidido definir el endpoint como un GET
 sin requestBody y pasando todas las variables en forma de path o query.
